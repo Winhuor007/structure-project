@@ -5,7 +5,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { Typography } from "@/components";
 import { LogoSmall, Wing } from "@/assets/card";
 
 const secretKey = import.meta.env.VITE_SECRET_KEY || "";
@@ -105,9 +104,9 @@ export default function ForgetPassword() {
           <div className="pb-7">
             <img src={LogoSmall} alt="Verification" className="w-36" />
           </div>
-          <Typography className="text-2xl font-bold mb-2">
+          <h2 className="text-2xl font-bold mb-2">
             Reset Password
-          </Typography>
+          </h2>
           <div className="pb-4">
             <div className="text-xs text-gray-400">
               {`Back to `}
@@ -122,7 +121,7 @@ export default function ForgetPassword() {
 
           {error && (
             <div className="flex items-center text-red-600 mb-2">
-              <Typography>{error}</Typography>
+              <p>{error}</p>
             </div>
           )}
           <form className="space-y-6" onSubmit={handleSubmit(handleSignUp)}>
@@ -143,9 +142,9 @@ export default function ForgetPassword() {
                   {...register("email")}
                 />
                 {errors.email && (
-                  <Typography className="text-sm text-red-500">
+                  <p className="text-sm text-red-500">
                     {errors.email.message}
-                  </Typography>
+                  </p>
                 )}
               </div>
             </div>

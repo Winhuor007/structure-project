@@ -1,11 +1,10 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import type { LoginFormData, LoginInput } from "../../interface";
+import { toast } from "@/lib/toast/toast";
 import { LoginSchema } from "../../schema/login";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Typography } from "@/components";
 import { Eye, EyeOff } from "lucide-react";
-import { useToast } from "@/hooks/use-toast";
 import { useAuthStore } from "@/store";
 import { useNavigate } from "react-router-dom";
 import { useLoginMutation } from "../../services";
@@ -26,8 +25,6 @@ const LoginForm = () => {
   // Toggle password visibility
   const togglePasswordVisibility = () =>
     setIsPasswordVisible(!isPasswordVisible);
-
-  const { toast } = useToast();
   const setAuth = useAuthStore((state) => state.setAuth);
 
   const { mutate: login } = useLoginMutation();
@@ -130,9 +127,7 @@ const LoginForm = () => {
         type="button"
         onClick={() => navigate("/auth/forget-password")}
       >
-        <Typography variant="body" color="accent">
-          Forgot Password?
-        </Typography>
+        <p>Forgot Password?</p>
       </button>
       {/* Submit button */}
       <button

@@ -1,17 +1,15 @@
-import { create } from "zustand";
+import { create } from 'zustand'
 
 interface AuthState {
-  user: any;
-  accessToken: string | null;
-  setCredentials: (data: { accessToken: string; user: any }) => void;
-  logout: () => void;
+  user: null | { id: string; name: string }
+  token: string | null
+  login: (user: any, token: string) => void
+  logout: () => void
 }
 
 export const useAuthStore = create<AuthState>((set) => ({
   user: null,
-  accessToken: null,
-  setCredentials: ({ accessToken, user }) => set({ accessToken, user }),
-  logout: () => set({ user: null, accessToken: null }),
-}));
-
-
+  token: null,
+  login: (user, token) => set({ user, token }),
+  logout: () => set({ user: null, token: null }),
+}))
