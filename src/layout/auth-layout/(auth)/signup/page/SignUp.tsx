@@ -1,21 +1,18 @@
+import * as yup from "yup";
+import { RegisterSchema } from "../schema/signup";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { Eye, EyeOff } from "lucide-react";
+import { LogoSmall, Wing } from "@/assets/card";
 
-import * as yup from 'yup';
-import { Typography } from "@/components";
-import { RegisterSchema } from '../schema/signup';
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import { Eye, EyeOff } from 'lucide-react';
-import { LogoSmall, Wing } from '@/assets/card';
-
-
-const secretKey = import.meta.env.VITE_SECRET_KEY || ""
+const secretKey = import.meta.env.VITE_SECRET_KEY || "";
 
 type RegisterFormData = yup.InferType<typeof RegisterSchema>;
 
-const SignUpPage =() => {
+const SignUpPage = () => {
   const {
     register,
     handleSubmit,
@@ -39,7 +36,7 @@ const SignUpPage =() => {
   // Handle the sign-up process
   const handleSignUp = async (data: RegisterFormData) => {
     // const secretKey = "kf93!@nF3?/$rJQ2@kT6b%rTYqKq9t1n3F!qL";
-    const { email, password, username } = data;//Destructures the email, password, and username fields from the data object for easier access.
+    const { email, password, username } = data; //Destructures the email, password, and username fields from the data object for easier access.
 
     setIsLoading(true); // Start loading spinner
     setError(null); // Reset error message   & Clears any previous error messages.
@@ -99,7 +96,7 @@ const SignUpPage =() => {
   const handleGoogleSignUp = async () => {
     try {
       const response = await axios.get("/google");
-      //This endpoint is expected to initiate the Google OAuth flow 
+      //This endpoint is expected to initiate the Google OAuth flow
       // and return a redirect URL for Google sign-in.
 
       if (response.data && response.data.url) {
@@ -113,16 +110,16 @@ const SignUpPage =() => {
     }
   };
 
-//   const handleBack = () => {
-//     navigate("/"); // Go back to the homepage
-//   };
+  //   const handleBack = () => {
+  //     navigate("/"); // Go back to the homepage
+  //   };
 
   return (
     <div className="min-h-screen flex">
-         {/* left Section - Image */}
+      {/* left Section - Image */}
       <div className="hidden sm:block w-3/4 lg:w-3/4 relative">
         <div className="h-full w-full flex items-center justify-center bg-blue-500 rounded-l-3xl">
-           <img
+          <img
             src={Wing}
             alt="Verification"
             className="w-full h-full object-cover"
@@ -142,13 +139,13 @@ const SignUpPage =() => {
           <div className="pb-7">
             <img src={LogoSmall} alt="Verification" className="w-36" />
           </div>
-          <Typography className="text-2xl font-bold mb-4 cursor-pointer">SIGN UP</Typography>
+          <h1 className="text-2xl font-bold mb-4 cursor-pointer">SIGN UP</h1>
           {error && (
             <div className="flex items-center text-red-600 mb-2">
-              <Typography >{error}</Typography>
+              <p>{error}</p>
             </div>
           )}
-          <form className="space-y-6" onSubmit={handleSubmit(handleSignUp)}>  
+          <form className="space-y-6" onSubmit={handleSubmit(handleSignUp)}>
             <div>
               <label
                 htmlFor="email"
@@ -166,7 +163,7 @@ const SignUpPage =() => {
                   {...register("email")}
                 />
                 {errors.email && (
-                  <Typography  className="text-sm text-red-500">{errors.email.message}</Typography>
+                  <p className="text-sm text-red-500">{errors.email.message}</p>
                 )}
               </div>
             </div>
@@ -194,12 +191,12 @@ const SignUpPage =() => {
                   onClick={togglePasswordVisibility}
                   className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600"
                 >
-                  {isPasswordVisible ? <Eye /> : <EyeOff/>}
+                  {isPasswordVisible ? <Eye /> : <EyeOff />}
                 </button>
                 {errors.password && (
-                  <Typography  className="text-sm text-red-500">
+                  <p className="text-sm text-red-500">
                     {errors.password.message}
-                  </Typography>
+                  </p>
                 )}
               </div>
             </div>
@@ -230,9 +227,9 @@ const SignUpPage =() => {
                   {isPasswordVisible ? <Eye /> : <EyeOff />}
                 </button>
                 {errors.confirmPassword && (
-                  <Typography  className="text-sm text-red-500">
+                  <p className="text-sm text-red-500">
                     {errors.confirmPassword.message}
-                  </Typography>
+                  </p>
                 )}
               </div>
             </div>
@@ -251,9 +248,9 @@ const SignUpPage =() => {
           {/* Google Sign Up */}
           <div className="relative flex items-center justify-center text-sm mt-4">
             <div className="flex-grow border-t border-gray-300"></div>
-            <Typography  className="px-2 text-sm text-gray-500 bg-white">
+            <p className="px-2 text-sm text-gray-500 bg-white">
               Or continue with
-            </Typography>
+            </p>
             <div className="flex-grow border-t border-gray-300"></div>
           </div>
 
@@ -291,10 +288,10 @@ const SignUpPage =() => {
           </div>
 
           <div className="mt-4">
-            <div  className="text-xs text-gray-400">
+            <div className="text-xs text-gray-400">
               I have already account
               <button
-                onClick={() =>navigate("/auth/login")}
+                onClick={() => navigate("/auth/login")}
                 className="underline text-blue-500 cursor-pointer"
               >
                 Login
@@ -305,7 +302,6 @@ const SignUpPage =() => {
       </div>
     </div>
   );
-}
+};
 
-
-export { SignUpPage }
+export { SignUpPage };

@@ -1,3 +1,7 @@
+
+
 export default function Settings() {
-  return <h2 className="text-xl font-semibold">Settings Page</h2>
+  console.log("coming soon");
+  
+  return <h1 className="text-2xl text-[#AAC936]">Coming Soon</h1>
 }

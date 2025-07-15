@@ -7,13 +7,13 @@
 //   return data.products;
 // };
 
-// export const createProduct = async (product: Partial<ProductType>) => {
-//   const { data } = await axiosInstanceProduct.post(API_ENDPOINT.CREATE_PRODUCT, product);
+// export const createProduct = async (payload: Partial<ProductType>) => { 
+//   const { data } = await axiosInstanceProduct.post(API_ENDPOINT.CREATE_PRODUCT, payload);
 //   return data;
 // };
 
-// export const updateProduct = async ({ id, product }: { id: number; product: Partial<ProductType> }) => {
-//   const { data } = await axiosInstanceProduct.put(API_ENDPOINT.UPDATE_PRODUCT(id), product);
+// export const updateProduct = async ({ id, payload }: { id: number; : Partial<ProductType> }) => {
+//   const { data } = await axiosInstanceProduct.put(API_ENDPOINT.UPDATE_PRODUCT(id), payload);
 //   return data;
 // };
 

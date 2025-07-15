@@ -1,14 +1,17 @@
 import { useState, useRef } from "react";
-import { Globe2, ChevronDown, ChevronUp, LogOut, User } from "lucide-react";
+import { Globe2, ChevronDown, ChevronUp, User } from "lucide-react";
 import { Logo } from "@/assets/card";
+import { useNavigate } from "react-router-dom";
 // import { useNavigate } from "react-router-dom";
-import { useAuthStore } from "@/store";
+import { useAuthStore } from "@/store/useAuthStore";
 
-export const HeaderPage = () => {
+
+export const Header = () => {
   const [langOpen, setLangOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
+ const clearAuth = useAuthStore((s) => s.clearAuth);
+  const navigate = useNavigate();
   const { name } = useAuthStore();
-
   const langRef = useRef(null);
   const profileRef = useRef(null);
 
@@ -19,15 +22,25 @@ export const HeaderPage = () => {
     setLangOpen(false);
   };
 
+  
+  const handleLogout = () => {
+    clearAuth();
+    // toast({
+    //   title: "Logged out",
+    //   description: "You have been logged out successfully.",
+    //   type: "success",
+    // });
+    navigate("/auth/login");
+  };
+
   return (
-   <header className="fixed top-0 right-0 z-50 w-full h-16 flex items-center justify-between px-4 md:px-6 lg:px-[15%] text-blue-500 bg-white shadow">
+    <header className=" top-0 right-0 z-50 w-full h-16 flex items-center justify-between px-4 md:px-6 lg:px-[15%] text-blue-500 bg-white shadow">
       {/* Logo */}
       <div className="flex items-center gap-3">
         <img src={Logo} width={120} alt="Wingbank Logo" />
       </div>
 
       <div className="flex items-center gap-3 relative">
-
         {/* Language */}
         <div className="relative" ref={langRef}>
           <button
@@ -70,9 +83,7 @@ export const HeaderPage = () => {
           >
             <User size={20} className="text-blue-500" />
             <div className="hidden md:block text-left">
-              <p className=" text-blue-500">
-                {name || "Guest"}
-              </p>
+              <p className=" text-blue-500">{name || "Guest"}</p>
             </div>
             {profileOpen ? (
               <ChevronUp className="w-4 h-4" />
@@ -85,21 +96,17 @@ export const HeaderPage = () => {
             <div className="absolute right-0 mt-2 w-52 bg-white text-gray-800 text-sm rounded-lg shadow-xl z-50">
               <div className="px-4 py-3 border-b">
                 <div className="flex">
-                 <User size={20} className="text-blue-500" />
+                  <User size={20} className="text-blue-500" />
                   <div className="ml-4">
-                    <p color="primary">
-                      {name || "Guest"}
-                    </p>
+                    <p color="primary">{name || "Guest"}</p>
                   </div>
                 </div>
               </div>
               <button className="flex items-center w-full px-4 py-2 hover:bg-gray-100">
                 <User className="w-4 h-4 mr-2" /> Profile
               </button>
-              <button
-                className="flex items-center w-full px-4 py-2 hover:bg-gray-100 text-red-600"
-              >
-                <LogOut className="w-4 h-4 mr-2" /> Logout
+              <button  onClick={handleLogout} className="flex items-center w-full px-4 py-2 hover:bg-gray-100 text-red-600">
+                 Logout
               </button>
             </div>
           )}
@@ -108,5 +115,3 @@ export const HeaderPage = () => {
     </header>
   );
 };
-
- 

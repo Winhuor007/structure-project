@@ -1,9 +1,9 @@
 import i18n from "i18next";
 import detector from "i18next-browser-languagedetector";
 import { initReactI18next } from "react-i18next";
-import cn from "./lang/cn.json";
-import en from "./lang/en.json";
-import km from "./lang/km.json";
+import cn from "./languages/cn.json";
+import en from "./languages/en.json";
+import km from "./languages/km.json";
 
 const resources = {
   en: { translation: en },

@@ -1,15 +1,15 @@
-import { useState } from "react";
+import { useState} from "react";
 import { useForm } from "react-hook-form";
-import type { LoginFormData, LoginInput } from "../../interface";
-import { toast } from "@/lib/toast/toast";
+import type { LoginFormData } from "../../interface";
 import { LoginSchema } from "../../schema/login";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Eye, EyeOff } from "lucide-react";
-import { useAuthStore } from "@/store";
 import { useNavigate } from "react-router-dom";
-import { useLoginMutation } from "../../services";
-import Cookies from "js-cookie";
+import axiosInstance from "@/lib/constants/axios";
+import { useAuthStore } from "@/store/useAuthStore";
+import { useToast } from "@/lib/toast/toast";
 
+const toast = useToast();
 const LoginForm = () => {
   const navigate = useNavigate();
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -22,52 +22,36 @@ const LoginForm = () => {
     resolver: yupResolver(LoginSchema),
   });
 
-  // Toggle password visibility
+const setAuth = useAuthStore((s) => s.setAuth);
+
+const onSubmit = async (data: LoginFormData) => {
+  try {
+    const response = await axiosInstance.post("/oauth/token", data);
+    const { access_token, refresh_token } = response.data;
+
+    setAuth({ accessToken: access_token, refreshToken: refresh_token });
+
+    toast.success("Login Successful", "Welcome back!")
+
+    navigate("/dashboard");
+  } catch (error) {
+    toast.error("Login Failed", "Invalid credentials.");
+    console.error("Login error:", error);
+  }
+};
+
   const togglePasswordVisibility = () =>
     setIsPasswordVisible(!isPasswordVisible);
-  const setAuth = useAuthStore((state) => state.setAuth);
 
-  const { mutate: login } = useLoginMutation();
-
-  const onSubmit = (data: LoginInput) => {
-    login(data, {
-      onSuccess: (response) => {
-        console.log(response);
-        const accessToken = response?.accessToken || "";
-        const refreshToken = response?.refreshToken || "";
-        const name = `${response?.firstName || ""} ${response?.lastName || ""}`;
-        const username = response?.username || "";
-
-        Cookies.set("accessToken", accessToken);
-        Cookies.set("refreshToken", refreshToken);
-
-        setAuth({ accessToken, refreshToken, name, username });
-
-        toast({
-          title: "Login successful",
-          description: `Welcome back, ${name}!`,
-          type: "success",
-        });
-      },
-      onError: () => {
-        toast({
-          title: "Login failed",
-          description: "Invalid username or password.",
-          type: "error",
-        });
-      },
-    });
-  };
-  // }
   return (
     <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
-      {/* Email input field */}
+      {/* Username input */}
       <div>
         <label
-          htmlFor="email"
+          htmlFor="username"
           className="block text-sm font-medium text-gray-700"
         >
-          Email
+          Username
         </label>
         <input
           {...register("username")}
@@ -85,7 +69,7 @@ const LoginForm = () => {
         )}
       </div>
 
-      {/* Password input field */}
+      {/* Password input */}
       <div>
         <label
           htmlFor="password"
@@ -112,7 +96,6 @@ const LoginForm = () => {
               {errors.password.message}
             </p>
           )}
-          {/* Toggle password visibility */}
           <button
             type="button"
             onClick={togglePasswordVisibility}
@@ -122,13 +105,16 @@ const LoginForm = () => {
           </button>
         </div>
       </div>
+
+      {/* Forgot password */}
       <button
-        className=" cursor-pointer"
+        className="cursor-pointer"
         type="button"
         onClick={() => navigate("/auth/forget-password")}
       >
         <p>Forgot Password?</p>
       </button>
+
       {/* Submit button */}
       <button
         type="submit"

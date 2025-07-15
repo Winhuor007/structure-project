@@ -1,6 +1,6 @@
-import cn from "./lang/cn.json";
-import en from "./lang/en.json";
-import km from "./lang/km.json";
+import cn from "./languages/cn.json";
+import en from "./languages/en.json";
+import km from "./languages/km.json";
 
 interface Resources {
   translation: typeof en | typeof km | typeof cn;
