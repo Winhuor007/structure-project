@@ -11,7 +11,6 @@ export const Header = () => {
   const [profileOpen, setProfileOpen] = useState(false);
  const clearAuth = useAuthStore((s) => s.clearAuth);
   const navigate = useNavigate();
-  const { name } = useAuthStore();
   const langRef = useRef(null);
   const profileRef = useRef(null);
 
@@ -25,11 +24,6 @@ export const Header = () => {
   
   const handleLogout = () => {
     clearAuth();
-    // toast({
-    //   title: "Logged out",
-    //   description: "You have been logged out successfully.",
-    //   type: "success",
-    // });
     navigate("/auth/login");
   };
 
@@ -83,7 +77,7 @@ export const Header = () => {
           >
             <User size={20} className="text-blue-500" />
             <div className="hidden md:block text-left">
-              <p className=" text-blue-500">{name || "Guest"}</p>
+              <p className=" text-blue-500">Guest</p>
             </div>
             {profileOpen ? (
               <ChevronUp className="w-4 h-4" />
@@ -98,7 +92,7 @@ export const Header = () => {
                 <div className="flex">
                   <User size={20} className="text-blue-500" />
                   <div className="ml-4">
-                    <p color="primary">{name || "Guest"}</p>
+                    <p color="primary"> Guest</p>
                   </div>
                 </div>
               </div>

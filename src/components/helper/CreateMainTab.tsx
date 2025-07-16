@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import CreateTabContent from "./CreateTabContent";
 import { HeaderTabs } from "./HeaderTabs";
-import CheckTransaction from "@/pages/CheckTransaction";
+import {CheckTransactionTab}from "@/features/crossbank/component/CheckTransaction";
 
 const MainTabs: React.FC = () => {
   const [activeTab, setActiveTab] = useState("create");
@@ -16,7 +16,7 @@ const MainTabs: React.FC = () => {
           <CreateTabContent subTab={subTab} onSubTabChange={setSubTab} />
         )}
         
-        {activeTab === "check" && <CheckTransaction />}
+        {activeTab === "check" && <CheckTransactionTab />}
       </div>
     </div>
   );

@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import SubTabs from "./SubTabs";
-import BuyVoucherPanel from "../pages/SettingPage";
-import OperatorInput from "../pages/NotFoundPage";
-import ResultPanel from "../pages/AuthLayout"; 
+import BuyVoucherPanel from "../../pages/SettingPage";
+import OperatorInput from "../../pages/NotFoundPage";
+import CrossBank from "@/features/crossbank/component/CrossBank"; 
 
 interface CreateTabContentProps {
   subTab: string;
@@ -22,7 +22,7 @@ const CreateTabContent: React.FC<CreateTabContentProps> = ({ subTab, onSubTabCha
             <OperatorInput value={phone} onChange={setPhone} subTab={subTab} />
           )}
           {subTab === "voucher" && <BuyVoucherPanel />}
-          {subTab === "result" && <ResultPanel />}
+          {subTab === "result" && <CrossBank />}
         </div>
       </div>
     </div>

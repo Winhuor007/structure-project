@@ -2,7 +2,7 @@ import React from "react";
 import { User } from "lucide-react";
 import { useAuthStore } from "@/store";
 import BanerI from "@/assets/card/image.png";
-import { MainTabs } from "@/components/CreateMainTab";
+import { MainTabs } from "@/components/helper/CreateMainTab";
 
 const getGreeting = () => {
   const hour = new Date().getHours();
