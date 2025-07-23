@@ -7,7 +7,6 @@ interface SubTabsProps {
 }
 
 const SubTabs: React.FC<SubTabsProps> = ({ active, onChange }) => {
-  console.log("fghjkl",onChange.name);
   
   return (
     <div>
@@ -22,7 +21,7 @@ const SubTabs: React.FC<SubTabsProps> = ({ active, onChange }) => {
           }`}
         >
           <ClipboardList size={20} />
-          CROSS BANK
+          Cross Bank
         </button>
 
         {/* Buy Voucher Tab */}
@@ -35,7 +34,7 @@ const SubTabs: React.FC<SubTabsProps> = ({ active, onChange }) => {
           }`}
         >
           <ShoppingCart size={20} />
-          PICK UP
+         Cash Pickup
         </button>
         <button
           onClick={() => onChange("pinless")}
@@ -46,7 +45,7 @@ const SubTabs: React.FC<SubTabsProps> = ({ active, onChange }) => {
           }`}
         >
           <Globe size={20} />
-          A2A
+          Direct to Wing Account
         </button>
       </div>
     </div>

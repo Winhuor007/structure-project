@@ -4,7 +4,8 @@ import Cookies from "js-cookie";
 import { useAuthStore } from "@/store/useAuthStore";
 
 const axiosInstance = axios.create({
-  baseURL: "https://b9dc873d-8270-4fea-94e2-ae73423cb865.mock.pstmn.io/",
+  baseURL: "https://765be262-dec2-4cde-9dab-854aa8fc3bce.mock.pstmn.io/",
+  //oauth/token
 });
 
 let isRefreshing = false;

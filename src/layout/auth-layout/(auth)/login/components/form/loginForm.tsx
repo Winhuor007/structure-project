@@ -9,8 +9,8 @@ import axiosInstance from "@/lib/constants/axios";
 import { useAuthStore } from "@/store/useAuthStore";
 import { useToast } from "@/lib/toast/toast";
 
-const toast = useToast();
 const LoginForm = () => {
+  const toast = useToast();
   const navigate = useNavigate();
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
@@ -33,7 +33,7 @@ const onSubmit = async (data: LoginFormData) => {
 
     toast.success("Login Successful", "Welcome back!")
 
-    navigate("/dashboard");
+    navigate("/crossbank");
   } catch (error) {
     toast.error("Login Failed", "Invalid credentials.");
     console.error("Login error:", error);

@@ -13,7 +13,7 @@ function App() {
         <Route path="/" element={<Navigate to="/auth/login" replace />} />
         <Route path="/auth/login" element={<LoginPage />} />
         <Route
-          path="/dashboard"
+          path="/crossbank"
           element={
             <ProtectedRoute>
               <Layout>
